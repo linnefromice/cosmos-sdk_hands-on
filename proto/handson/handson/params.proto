@@ -1,0 +1,12 @@
+syntax = "proto3";
+package linnefromice.handson.handson;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/linnefromice/handson/x/handson/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (gogoproto.goproto_stringer) = false;
+  
+}
