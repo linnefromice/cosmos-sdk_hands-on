@@ -8,5 +8,6 @@ import (
 
 // x/handson module sentinel errors
 var (
-	ErrSample = sdkerrors.Register(ModuleName, 1100, "sample error")
+	ErrSample         = sdkerrors.Register(ModuleName, 1100, "sample error")
+	ErrIncorrectDenom = sdkerrors.Register(ModuleName, 11, "wrong denom")
 )

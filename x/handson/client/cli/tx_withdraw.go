@@ -8,6 +8,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/linnefromice/handson/x/handson/types"
+	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 )
 
@@ -15,11 +16,15 @@ var _ = strconv.Itoa(0)
 
 func CmdWithdraw() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "withdraw [amount]",
+		Use:   "withdraw [pool-id] [amount]",
 		Short: "Broadcast message withdraw",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argAmount, err := sdk.ParseCoinNormalized(args[0])
+			argPoolId, err := cast.ToUint64E(args[0])
+			if err != nil {
+				return err
+			}
+			argAmount, err := sdk.ParseCoinNormalized(args[1])
 			if err != nil {
 				return err
 			}
@@ -31,6 +36,7 @@ func CmdWithdraw() *cobra.Command {
 
 			msg := types.NewMsgWithdraw(
 				clientCtx.GetFromAddress().String(),
+				argPoolId,
 				argAmount,
 			)
 			if err := msg.ValidateBasic(); err != nil {

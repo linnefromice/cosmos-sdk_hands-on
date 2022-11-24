@@ -9,9 +9,10 @@ const TypeMsgWithdraw = "withdraw"
 
 var _ sdk.Msg = &MsgWithdraw{}
 
-func NewMsgWithdraw(creator string, amount sdk.Coin) *MsgWithdraw {
+func NewMsgWithdraw(creator string, poolId uint64, amount sdk.Coin) *MsgWithdraw {
 	return &MsgWithdraw{
 		Creator: creator,
+		PoolId:  poolId,
 		Amount:  amount,
 	}
 }
