@@ -6,38 +6,28 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/linnefromice/handson/x/handson/types"
-	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 )
 
 var _ = strconv.Itoa(0)
 
-func CmdWithdraw() *cobra.Command {
+func CmdCreatePool() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "withdraw [pool-id] [amount]",
-		Short: "Broadcast message withdraw",
-		Args:  cobra.ExactArgs(2),
+		Use:   "create-pool [denom]",
+		Short: "Broadcast message create_pool",
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			argPoolId, err := cast.ToUint64E(args[0])
-			if err != nil {
-				return err
-			}
-			argAmount, err := sdk.ParseCoinNormalized(args[1])
-			if err != nil {
-				return err
-			}
+			argDenom := args[0]
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgWithdraw(
+			msg := types.NewMsgCreatePool(
 				clientCtx.GetFromAddress().String(),
-				argPoolId,
-				argAmount,
+				argDenom,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
