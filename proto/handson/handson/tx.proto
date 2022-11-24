@@ -2,12 +2,23 @@ syntax = "proto3";
 package linnefromice.handson.handson;
 
 // this line is used by starport scaffolding # proto/tx/import
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
 
 option go_package = "github.com/linnefromice/handson/x/handson/types";
 
 // Msg defines the Msg service.
 service Msg {
-    // this line is used by starport scaffolding # proto/tx/rpc
+      rpc Deposit(MsgDeposit) returns (MsgDepositResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgDeposit {
+  string creator = 1;
+  cosmos.base.v1beta1.Coin amount = 2 [(gogoproto.nullable) = false];
+}
+
+message MsgDepositResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
