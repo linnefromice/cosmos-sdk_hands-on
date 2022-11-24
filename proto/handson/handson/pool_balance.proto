@@ -1,0 +1,12 @@
+syntax = "proto3";
+package linnefromice.handson.handson;
+
+option go_package = "github.com/linnefromice/handson/x/handson/types";
+import "gogoproto/gogo.proto"; 
+import "cosmos/base/v1beta1/coin.proto"; 
+
+message PoolBalance {
+  
+  uint64 poolId = 1; 
+  cosmos.base.v1beta1.Coin balance = 2 [(gogoproto.nullable) = false]; 
+}
