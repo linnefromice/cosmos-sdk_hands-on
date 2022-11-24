@@ -1,12 +1,13 @@
 syntax = "proto3";
 package linnefromice.handson.handson;
 
-import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "handson/handson/params.proto";
 import "handson/handson/pool.proto";
 // this line is used by starport scaffolding # 1
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
 
 option go_package = "github.com/linnefromice/handson/x/handson/types";
 
@@ -24,6 +25,11 @@ service Query {
 	// Queries a list of Pool items.
 	rpc PoolAll(QueryAllPoolRequest) returns (QueryAllPoolResponse) {
 		option (google.api.http).get = "/linnefromice/handson/handson/pool";
+	}
+
+// Queries a list of PoolBalances items.
+	rpc PoolBalances(QueryPoolBalancesRequest) returns (QueryPoolBalancesResponse) {
+		option (google.api.http).get = "/linnefromice/handson/handson/pool_balances";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -53,6 +59,13 @@ message QueryAllPoolRequest {
 message QueryAllPoolResponse {
 	repeated Pool Pool = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryPoolBalancesRequest {
+}
+
+message QueryPoolBalancesResponse {
+  repeated cosmos.base.v1beta1.Coin balances = 1 [(gogoproto.nullable) = false];
 }
 
 // this line is used by starport scaffolding # 3
