@@ -509,6 +509,7 @@ func New(
 		keys[handsonmoduletypes.StoreKey],
 		keys[handsonmoduletypes.MemStoreKey],
 		app.GetSubspace(handsonmoduletypes.ModuleName),
+		app.AccountKeeper,
 		app.BankKeeper,
 	)
 	handsonModule := handsonmodule.NewAppModule(appCodec, app.HandsonKeeper, app.AccountKeeper, app.BankKeeper)

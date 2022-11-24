@@ -31,7 +31,8 @@ func (k msgServer) Withdraw(goCtx context.Context, msg *types.MsgWithdraw) (*typ
 		return &types.MsgWithdrawResponse{}, err
 	}
 
-	err = k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sender, sdk.NewCoins(msg.Amount))
+	poolAddr, _ := sdk.AccAddressFromBech32(pool.Address)
+	err = k.bankKeeper.SendCoins(ctx, poolAddr, sender, sdk.NewCoins(msg.Amount))
 	if err != nil {
 		return &types.MsgWithdrawResponse{}, err
 	}
