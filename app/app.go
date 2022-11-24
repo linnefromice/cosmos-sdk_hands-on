@@ -107,6 +107,7 @@ import (
 	handsonmodule "github.com/linnefromice/handson/x/handson"
 	handsonmodulekeeper "github.com/linnefromice/handson/x/handson/keeper"
 	handsonmoduletypes "github.com/linnefromice/handson/x/handson/types"
+
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	appparams "github.com/linnefromice/handson/app/params"
@@ -179,6 +180,7 @@ var (
 		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
 		govtypes.ModuleName:            {authtypes.Burner},
 		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
+		handsonmoduletypes.ModuleName:  {authtypes.Minter, authtypes.Burner},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 )
@@ -507,6 +509,7 @@ func New(
 		keys[handsonmoduletypes.StoreKey],
 		keys[handsonmoduletypes.MemStoreKey],
 		app.GetSubspace(handsonmoduletypes.ModuleName),
+		app.BankKeeper,
 	)
 	handsonModule := handsonmodule.NewAppModule(appCodec, app.HandsonKeeper, app.AccountKeeper, app.BankKeeper)
 
