@@ -10,8 +10,16 @@ import (
 func (k msgServer) CreatePool(goCtx context.Context, msg *types.MsgCreatePool) (*types.MsgCreatePoolResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	pool := types.Pool{
+		Address:   msg.Creator, // temp
+		Denom:     msg.Denom,
+		IsActive:  true,
+		Deposited: 0,
+		Borrowed:  0,
+	}
+	k.AppendPool(ctx, pool)
 
-	return &types.MsgCreatePoolResponse{}, nil
+	return &types.MsgCreatePoolResponse{
+		PoolId: pool.Id,
+	}, nil
 }
