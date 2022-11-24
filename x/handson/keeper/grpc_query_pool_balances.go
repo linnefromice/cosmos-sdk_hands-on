@@ -16,8 +16,18 @@ func (k Keeper) PoolBalances(goCtx context.Context, req *types.QueryPoolBalances
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Process the query
-	_ = ctx
+	pools := k.GetAllPool(ctx)
+	var balances []types.PoolBalance
+	for _, value := range pools {
+		addr, _ := sdk.AccAddressFromBech32(value.Address)
+		coin := k.bankKeeper.GetBalance(ctx, addr, value.Denom)
+		balances = append(balances, types.PoolBalance{
+			PoolId:  value.Id,
+			Balance: coin,
+		})
+	}
 
-	return &types.QueryPoolBalancesResponse{}, nil
+	return &types.QueryPoolBalancesResponse{
+		Balances: balances,
+	}, nil
 }
