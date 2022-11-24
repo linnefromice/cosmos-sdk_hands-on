@@ -73918,6 +73918,12 @@ definitions:
     description: |-
       Version defines the versioning scheme used to negotiate the IBC verison in
       the connection handshake.
+  linnefromice.handson.handson.MsgCreatePoolResponse:
+    type: object
+    properties:
+      poolId:
+        type: string
+        format: uint64
   linnefromice.handson.handson.MsgDepositResponse:
     type: object
   linnefromice.handson.handson.MsgWithdrawResponse:

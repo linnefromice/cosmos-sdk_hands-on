@@ -11,6 +11,7 @@ option go_package = "github.com/linnefromice/handson/x/handson/types";
 service Msg {
       rpc Deposit(MsgDeposit) returns (MsgDepositResponse);
   rpc Withdraw(MsgWithdraw) returns (MsgWithdrawResponse);
+  rpc CreatePool(MsgCreatePool) returns (MsgCreatePoolResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -28,6 +29,15 @@ message MsgWithdraw {
 }
 
 message MsgWithdrawResponse {
+}
+
+message MsgCreatePool {
+  string creator = 1;
+  string denom = 2;
+}
+
+message MsgCreatePoolResponse {
+  uint64 poolId = 1;
 }
 
 // this line is used by starport scaffolding # proto/tx/message
