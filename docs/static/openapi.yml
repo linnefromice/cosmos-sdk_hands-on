@@ -73731,6 +73731,8 @@ definitions:
       the connection handshake.
   linnefromice.handson.handson.MsgDepositResponse:
     type: object
+  linnefromice.handson.handson.MsgWithdrawResponse:
+    type: object
   linnefromice.handson.handson.Params:
     type: object
     description: Params defines the parameters for the module.

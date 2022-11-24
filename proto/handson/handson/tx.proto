@@ -10,6 +10,7 @@ option go_package = "github.com/linnefromice/handson/x/handson/types";
 // Msg defines the Msg service.
 service Msg {
       rpc Deposit(MsgDeposit) returns (MsgDepositResponse);
+  rpc Withdraw(MsgWithdraw) returns (MsgWithdrawResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -19,6 +20,14 @@ message MsgDeposit {
 }
 
 message MsgDepositResponse {
+}
+
+message MsgWithdraw {
+  string creator = 1;
+  cosmos.base.v1beta1.Coin amount = 2 [(gogoproto.nullable) = false];
+}
+
+message MsgWithdrawResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
