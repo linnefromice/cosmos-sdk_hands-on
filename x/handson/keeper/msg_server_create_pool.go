@@ -34,6 +34,13 @@ func (k msgServer) CreatePool(goCtx context.Context, msg *types.MsgCreatePool) (
 	}
 	k.AppendPool(ctx, pool)
 
+	// event
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(types.PoolDepositedEventType,
+			sdk.NewAttribute(types.PoolEventId, fmt.Sprint(pool.Id)),
+			sdk.NewAttribute(types.PoolEventDenom, fmt.Sprint(msg.Denom))),
+	)
+
 	return &types.MsgCreatePoolResponse{
 		PoolId: pool.Id,
 	}, nil

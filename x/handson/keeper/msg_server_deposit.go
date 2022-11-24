@@ -40,5 +40,13 @@ func (k msgServer) Deposit(goCtx context.Context, msg *types.MsgDeposit) (*types
 	pool.Deposited += msg.Amount.Amount.Uint64()
 	k.SetPool(ctx, pool)
 
+	// event
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(types.PoolDepositedEventType,
+			sdk.NewAttribute(types.PoolEventId, fmt.Sprint(pool.Id)),
+			sdk.NewAttribute(types.PoolEventAmount, fmt.Sprint(msg.Amount.Amount)),
+			sdk.NewAttribute(types.PoolEventDenom, fmt.Sprint(msg.Amount.Denom))),
+	)
+
 	return &types.MsgDepositResponse{}, nil
 }
